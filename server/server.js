@@ -9,27 +9,11 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 
-
-const allowedOrigins = [
-  `${process.env.FRONTEND_BASE_URL}`,
-];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-  credentials: true, 
-}));
+// Allow all origins
+app.use(cors());
 
 // Handle preflight OPTIONS requests
 app.options('*', cors());
-
-
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)
@@ -153,20 +137,15 @@ app.put('/api/whitelist/:userId', async (req, res) => {
   }
 });
 
-// Protected Route Example (Requires Authentication)
-app.get('/api/protected', authenticate, (req, res) => {
-  res.json({ message: `Hello, user ${req.user.userId}` });
-});
 // Get All Users Endpoint
 app.get('/api/users', async (req, res) => {
-    try {
-      const users = await User.find({}, 'username isWhitelisted scanCount firstScanDate'); // Fetch relevant fields
-      res.json(users);
-    } catch (err) {
-      res.status(500).json({ error: 'Server error' });
-    }
-  });
-  
+  try {
+    const users = await User.find({}, 'username isWhitelisted scanCount firstScanDate'); // Fetch relevant fields
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
 // Start Server
 const PORT = process.env.PORT || 8080;
