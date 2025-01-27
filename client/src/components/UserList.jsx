@@ -9,7 +9,7 @@ const UserList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/users");
+        const response = await axios.get("https://qr-auth-kwvfmo55c-alphaomega4348s-projects.vercel.app/api/users");
         setUsers(response.data);
         setLoading(false);
       } catch (error) {
@@ -23,7 +23,7 @@ const UserList = () => {
   // Whitelist a user
   const handleWhitelist = async (userId) => {
     try {
-      const response = await axios.put(`http://localhost:8080/api/whitelist/${userId}`);
+      const response = await axios.put(`https://qr-auth-kwvfmo55c-alphaomega4348s-projects.vercel.app/api/whitelist/${userId}`);
       alert(response.data.message);
 
       // Update the UI to reflect the whitelist status

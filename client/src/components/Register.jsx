@@ -11,7 +11,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/api/register", {
+      const response = await axios.post("https://qr-auth-kwvfmo55c-alphaomega4348s-projects.vercel.app/api/register", {
         username,
         password,
       });

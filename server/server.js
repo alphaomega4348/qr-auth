@@ -9,8 +9,24 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 
-// Use CORS middleware and specify the frontend origin
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+
+const allowedOrigins = [
+  'http://localhost:5173', // Development URL
+  'https://qr-auth-x9ak-1s18l2ggb-alphaomega4348s-projects.vercel.app/', 
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)

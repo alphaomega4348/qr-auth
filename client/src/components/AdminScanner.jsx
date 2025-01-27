@@ -35,7 +35,7 @@ const AdminScanner = () => {
 
   const handleScan = async (data) => {
     try {
-      const response = await fetch("http://localhost:8080/api/scan", {
+      const response = await fetch("https://qr-auth-kwvfmo55c-alphaomega4348s-projects.vercel.app/api/scan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ qrCodeData: data }),
