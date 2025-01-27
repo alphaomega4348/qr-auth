@@ -6,7 +6,7 @@ const Whitelist = () => {
 
   const handleWhitelist = async () => {
     try {
-      const response = await axios.put(`https://qr-auth-kwvfmo55c-alphaomega4348s-projects.vercel.app/api/whitelist/${userId}`);
+      const response = await axios.put(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/whitelist/${userId}`);
       alert(response.data.status);
     } catch (error) {
       alert(error.response?.data?.error || "Whitelist failed");

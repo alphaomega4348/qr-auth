@@ -11,8 +11,8 @@ app.use(express.json());
 
 
 const allowedOrigins = [
-  'http://localhost:5173', // Development URL
-  'https://qr-auth-x9ak-1s18l2ggb-alphaomega4348s-projects.vercel.app/', 
+  'http://localhost:5173', 
+  'https://qr-auth-x9ak-1s18l2ggb-alphaomega4348s-projects.vercel.app', // Production URL
 ];
 
 app.use(cors({
@@ -23,9 +23,13 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  credentials: true, 
 }));
+
+// Handle preflight OPTIONS requests
+app.options('*', cors());
+
 
 
 // Connect to MongoDB
