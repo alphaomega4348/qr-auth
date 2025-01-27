@@ -11,8 +11,7 @@ app.use(express.json());
 
 
 const allowedOrigins = [
-  'http://localhost:5173', 
-  'https://qr-auth-x9ak-1s18l2ggb-alphaomega4348s-projects.vercel.app', // Production URL
+  `${process.env.FRONTEND_BASE_URL}`,
 ];
 
 app.use(cors({
